@@ -1,0 +1,19 @@
+{
+  "name": "vuejs-with-vite",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build --port 3000",
+    "preview": "vite preview --port 3000"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "sass": "^1.79.4",
+    "sass-loader": "^16.0.2",
+    "vite": "^4.5.1"
+  }
+}
