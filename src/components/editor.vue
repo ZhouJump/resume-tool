@@ -24,11 +24,11 @@
 			@start="$emit('dragstart')"
 			@end="$emit('dragend')"
 			:group="{name:'group',pull:true,put:true}">
-			 <template #item="{ element }">
+			 <template #item="{ element,index }">
 				  <div class="item">
-						<project-exp :data="element" v-if="element.name==='projectExp'"></project-exp>
-						<fence-title :data="element" v-else-if="element.name==='fenceTitle'"></fence-title>
-						<unkown :data="element" v-else></unkown>
+						<project-exp @click="$emit('chooseComp',{com:'projectExpEdit',index:index});console.log(element.name)" :data="element" v-if="element.name==='projectExp'"></project-exp>
+						<fence-title @click="$emit('chooseComp',{com:'headEdit',index:index})" :data="element" v-else-if="element.name==='fenceTitle'"></fence-title>
+						<unkown @click="$emit('chooseComp',{com:'headEdit',index:index})" :data="element" v-else></unkown>
 				  </div>
 			</template>
 		</draggable>
@@ -36,13 +36,10 @@
 </template>
     
 <style scoped>
-    .resume-page {
-        height: 594px;
-        width: 420px;
-        position: relative;
-        left: calc(50% - 210px);
+    .resume-page{
+		height: 594px;
+		width: 420px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
 		transform-origin: 50% 0;
-        top: 80px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+	}
 </style>

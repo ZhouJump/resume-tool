@@ -1,12 +1,16 @@
 <script>
 	import "bootstrap-icons/font/bootstrap-icons.min.css"
     import draggable from "vuedraggable";
+	import domtoimage from 'dom-to-image';
+	import printJS from "print-js";
+	import FileSaver from "file-saver";
 	import projectExp from "./components/resume/project-exp.vue";
 	import fenceTitle from "./components/resume/fence-title.vue"
 	import unkown from "./components/resume/unkown.vue";
 	import iconLib from "./components/icon-lib.vue";
     import editor from "./components/editor.vue";
 	import headEdit from "./components/detail/head-edit.vue";
+	import projectExpEdit from "./components/detail/project-exp-edit.vue";
 	import theme from "./components/detail/theme.vue";
 	export default {
 	data() {
@@ -14,6 +18,7 @@
 			switchIndex:0,
 			pageScale:1,
 			trashHide:true,
+			printing:false,
 			
 			trashList:[],
 	
@@ -24,8 +29,8 @@
 					{title:'主要职责:',text:'我是主要职责'},
 				]},
 				{name:'projectExp',title:['生平履历'],data:[]},
-				{name:'projectExp',title:[],data:[{title:'主要成就:',text:'我的光荣事迹'},]},
-				{name:'projectExp',title:[],data:[{title:'',text:'我的光荣事迹'},]},
+				{name:'projectExp',title:[],data:[{title:'主要成就:',text:'我的光荣事迹'}]},
+				{name:'projectExp',title:[],data:[{title:'',text:'我的光荣事迹'}]},
 			],
 			
 			detailList:{
@@ -33,7 +38,7 @@
 				index:0
 			},
 			
-			resumeList:{
+			resumeList:JSON.parse(localStorage.getItem('resume'))||{
 				head:{name:'张三',job:'前端开发工程师',avater:'/avater.png',data:[
 					{title:'意向工作地',data:'A省B县C区',icon:'bi-geo-alt-fill'},
 					{title:'电话',data:'123456789',icon:'bi-telephone-fill'},
@@ -46,7 +51,12 @@
 			}
 		}
 	  },
-	components: {editor,headEdit,theme,iconLib,draggable,projectExp,fenceTitle,unkown},
+	components: {editor,headEdit,projectExpEdit,theme,iconLib,draggable,projectExp,fenceTitle,unkown},
+	mounted() {
+		setInterval(()=>{
+			localStorage.setItem('resume',JSON.stringify(this.resumeList))
+		},2000)
+	},
 	methods:{
 		/**指定编辑组件
 		 * @param {String} component.com 组件名称
@@ -60,30 +70,60 @@
 			if(this.pageScale > 1 || e.wheelDeltaY>0)
 				this.pageScale += e.wheelDeltaY/1200
 			event.preventDefault()
+		},
+		savepic(){
+			let scale = this.pageScale
+			this.pageScale = 4
+			this.printing = true
+			setTimeout(()=>{
+				domtoimage.toPng(document.getElementById('editor'))
+				.then( blob => {
+						this.pageScale = scale
+						this.printing = false
+				        FileSaver.saveAs(blob, 'resume.png');
+						
+				    });
+			},200)
+			
+		},
+		print(){
+			let scale = this.pageScale
+			this.pageScale = 4
+			this.printing = true
+			setTimeout(()=>{
+				domtoimage.toPng(document.getElementById('editor'))
+				.then( blob => {
+						this.pageScale = scale
+						this.printing = false
+				        printJS(blob,'image')	
+				    });
+			},200)
+			
 		}
-		
 	}
 	}
 </script>
 
 <template>
-	<editor
-		:style="{scale:pageScale}"
-		@mousewheel="mouseWheel"
-		@chooseComp="chooseComp"
-		@dragstart="trashHide=false"
-		@dragend="trashHide=true"
-		class="default"
-		:resume="resumeList">
-		
-	</editor>
+	<div id="editor" :style="{position:printing?'static':'',height:printing?'2376px':'',width:printing?'1680px':''}" class="default editor">
+		<editor
+			:style="{scale:pageScale,position:printing?'static':'',transformOrigin:printing?'0 0':''}"
+			@mousewheel="mouseWheel"
+			@chooseComp="chooseComp"
+			@dragstart="trashHide=false;chooseComp({com:'theme',index:0})"
+			@dragend="trashHide=true;trashList=[]"
+			:resume="resumeList">
+		</editor>
+	</div>
+	<!-- 左侧组件栏 -->
     <div class="side-library box">
         <div class="switch">
 			<div @click="switchIndex=0" :class="['switch-tab',switchIndex?'':'switch-active']">组件库</div>
 			<div @click="switchIndex=1" :class="['switch-tab',switchIndex?'switch-active':'']">图标库</div>
 		</div>
 		<div v-show="!switchIndex" class="default">
-			<draggable :list="libraryList" :group="{name:'group',pull:'clone',put:false}"  :sort="false">
+			<draggable :list="libraryList" :group="{name:'group',pull:'clone',put:false}"
+				:sort="false" :clone="(e)=>{return JSON.parse(JSON.stringify(e))}">
 				 <template #item="{ element }">
 					  <div class="item">
 							<project-exp :data="element" v-if="element.name==='projectExp'"></project-exp>
@@ -95,9 +135,11 @@
 		</div>
 		<icon-lib v-show="switchIndex"></icon-lib>
     </div>
+	<!-- 右侧编辑栏 -->
     <div class="side-detail box">
-		<component @chooseComp="chooseComp" :resume="resumeList" :is="detailList.component"></component>
+		<component @chooseComp="chooseComp" :resume="resumeList" :index="detailList.index" :is="detailList.component"></component>
     </div>
+	<!-- 删除组件的垃圾桶 -->
 	<div :style="{bottom:trashHide?'-110px':'-20px'}" class="trach-bin box">
 		<div class="trach-in">
 			<draggable class="trash-drag" :list="trashList" :group="{name:'group',pull:false,put:true}" @end="trashList=[]" :sort="false">
@@ -114,8 +156,14 @@
 			<i class="bi bi-recycle"></i>
 		</div>
 	</div>
+	<!-- 顶栏 -->
 	<div class="head-bar box">
-		
+		<div class="head-bar-left"></div>
+		<div class="head-bar-center"></div>
+		<div class="head-bar-right">
+			<i @click="savepic" class="bi bi-image-fill"></i>
+			<i @click="print" class="bi bi-printer-fill"></i>
+		</div>
 	</div>
 </template>
     
@@ -131,6 +179,13 @@
 	body{
 		overflow-y: scroll;
 	}
+	.editor {
+	    height: 594px;
+	    width: 420px;
+	    position: relative;
+	    left: calc(50% - 210px);
+	    top: 80px;
+	}
 	.box{
 	    padding: 10px;
 	    box-sizing: border-box;
@@ -143,7 +198,7 @@
 		height: 110 px;
 		position: fixed;
 		border-radius: 24px;
-		left: calc(50% - 150px);
+		left: 30px;
 		padding: 6px;
 		background: #b5cbd9;
 		box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -163,6 +218,8 @@
 	}
 	.trash-drag{
 		opacity: 0;
+		width: 100%;
+		height: 100%;
 	}
 	.head-bar{
 		height: 55px;
@@ -171,6 +228,25 @@
 		top:0;
 		left: 0;
 		border-radius: 0;
+		display: flex;
+		justify-content: space-between;
+	}
+	.head-bar .bi{
+		display: block;
+		width: 60px;
+		height: 35px;
+		text-align: center;
+		line-height: 35px;
+		font-size: 20px;
+		margin-left: 4px;
+		margin-left: 4px;
+		border-radius: 8px;
+	}
+	.head-bar div{
+		display: flex;
+	}
+	.head-bar .bi:hover{
+		background: #eaeaea;
 	}
 	.side-library .item{
 		border: 1px solid #eaeaea;
