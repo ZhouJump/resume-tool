@@ -7,13 +7,12 @@
     "preview": "vite preview --port 3000"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.11.3",
     "vue": "^3.3.4",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
-    "sass": "^1.79.4",
-    "sass-loader": "^16.0.2",
     "vite": "^4.5.1"
   }
 }

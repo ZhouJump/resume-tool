@@ -1,0 +1,87 @@
+.default{
+	font-size: 8px;	
+	font-weight: 300;
+}
+.default.resume-page{
+	border: 6px solid #2E74B5;
+	box-sizing: border-box;
+	padding: 10px;
+	background: white;
+}
+.default.resume-page .resume-head{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: calc(100% - 56px);
+	margin-bottom: 10px;
+}
+.default.resume-page .name{
+	font-size: 18px;
+	color: #2E74B5;
+	width: 26%;
+}
+.default.resume-page .job{
+	margin-left: 10px;
+	align-self: flex-end;
+	width: 70%;
+}
+.default.resume-page .avater{
+	width: 46px;
+	height: 60px;
+	position: absolute;
+	right: 10px;
+	border: 2px solid #2E74B5;
+}
+.default.resume-page .job::before{
+	content: '求职意向：';
+	font-weight: 500;
+}
+.default.resume-page .data{
+	margin-top: 12px;
+	position: relative;
+}
+.default.resume-page .data div:first-child{
+	margin-left: 10px;
+}
+.default.resume-page .data i{
+	position: absolute;
+	top: 0;
+}
+.default.resume-page .draggable{
+	height: calc(100% - 70px);
+}
+.default .project-exp{
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.default .project-exp .title-list{
+	display: flex;
+	justify-content: space-between;
+	color: #2E74B5;
+	font-size: 9px;
+	font-weight: 600;
+}
+.default .project-exp .detail .detail-title{
+	display: inline;
+	font-weight: 500;
+}
+.default .project-exp .detail .detail-text{
+	display: inline;
+}
+.default .fence-title{
+	color: white;
+	font-size: 10px;
+	border-bottom: 1px solid #2E74B5;
+	margin-top: 6px;
+	margin-bottom: 4px;
+}
+.default .fence-title .icon{
+	background-color: #2E74B5;
+	padding: 0 2px 0 8px;
+}
+.default .fence-title .title{
+	background-color: #2E74B5;
+	padding: 2px;
+	padding: 0 8px 0 2px;
+	display: inline;
+}
