@@ -1,6 +1,19 @@
 <script setup>
-   const resume = defineProps(['resume'])
+   const resume = defineProps(['resume','index'])
    const emit = defineEmits(["chooseComp","valueChange"])
+   function chooseAvater(file){
+	   console.log(file.size)
+	   if(file.size>1024*1024*4)
+	   {
+		   alert('图片文件最好不要大于4M哦')
+		   return
+	   }
+	   const reader = new FileReader();
+	   reader.readAsDataURL(file);
+	   reader.onload = () => {
+		 resume.resume.head.avater = reader.result;
+	   };
+   }
 </script>
 
 <template>
@@ -9,6 +22,7 @@
    <div class="title">基本信息</div>
    <input @input="resume.resume.head.name=$event.target.value" placeholder="姓名" :value="resume.resume.head.name"/>
    <input @input="resume.resume.head.job=$event.target.value" placeholder="意向工作" :value="resume.resume.head.job"/>
+   <input @change="chooseAvater($event.target.files[0])" accept="image/*" placeholder="头像文件" type="file"/>
    <div class="title">其它信息</div>
    <div class="info-cont">
 	  <div class="other-info" v-for="(data,index) in resume.resume.head.data">
@@ -34,7 +48,7 @@
 	.info-cont{
 		overflow: hidden;
 		overflow-y: scroll;
-		height: calc(100% - 180px);
+		height: calc(100% - 220px);
 	}
 	input,input:focus{
 		outline: none;

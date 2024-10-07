@@ -85,3 +85,49 @@
 	padding: 0 8px 0 2px;
 	display: inline;
 }
+.default .rank-exp{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.default .rank-exp .rank-exp-item{
+	display: flex;
+	align-items: center;
+	width: 33%;
+}
+.default .rank-exp .rank-exp-item .rank-count-box{
+	width: 70%;
+	display: flex;
+	align-items: center;
+	background-color: lightgray;
+	border-radius: 3px;
+}
+.default .rank-exp .rank-exp-item .rank-count{
+	width: 20%;
+	height: 6px;
+	background: #2E74B5;
+}
+.default .rank-exp .rank-exp-item .rank-count:first-child{
+	border-bottom-left-radius: 3px;
+	border-top-left-radius: 3px;
+}
+.default .rank-exp .rank-exp-item .rank-count:last-child{
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.default .rank-exp .rank-exp-item .rank-title{
+	margin-right: 6px;
+}
+.default .tag-list{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.default .tag-list .tag-item{
+	background-color: #2E74B5;
+	color: white;
+	margin: 2px;
+	padding: 0 6px 0 6px;
+	border-radius: 6px;
+	font-size: 9px;
+}

@@ -1,24 +1,32 @@
 <script>
 	import "bootstrap-icons/font/bootstrap-icons.min.css"
+	import defaultResume from "./default.json"
     import draggable from "vuedraggable";
 	import domtoimage from 'dom-to-image';
 	import printJS from "print-js";
 	import FileSaver from "file-saver";
 	import projectExp from "./components/resume/project-exp.vue";
 	import fenceTitle from "./components/resume/fence-title.vue"
+	import rankExp from "./components/resume/rank-exp.vue";
+	import tagList from "./components/resume/tag-list.vue";
 	import unkown from "./components/resume/unkown.vue";
 	import iconLib from "./components/icon-lib.vue";
     import editor from "./components/editor.vue";
 	import headEdit from "./components/detail/head-edit.vue";
 	import projectExpEdit from "./components/detail/project-exp-edit.vue";
+	import fenceTitleEdit from "./components/detail/fence-title-edit.vue";
+	import rankExpEdit from "./components/detail/rank-exp-edit.vue";
+	import tagListEdit from "./components/detail/tag-list-edit.vue";
 	import theme from "./components/detail/theme.vue";
 	export default {
+	emits:['chooseComp','mousewheel','dragstart','dragend'],
 	data() {
 		return {
 			switchIndex:0,
 			pageScale:1,
 			trashHide:true,
 			printing:false,
+			version:0.01,
 			
 			trashList:[],
 	
@@ -31,6 +39,8 @@
 				{name:'projectExp',title:['生平履历'],data:[]},
 				{name:'projectExp',title:[],data:[{title:'主要成就:',text:'我的光荣事迹'}]},
 				{name:'projectExp',title:[],data:[{title:'',text:'我的光荣事迹'}]},
+				{name:'rankExp',data:[{title:'CSS',rank:5},{title:'HTML',rank:4},{title:'JS',rank:4}]},
+				{name:'tagList',data:['唱','跳','说唱','篮球','音乐']},
 			],
 			
 			detailList:{
@@ -38,26 +48,25 @@
 				index:0
 			},
 			
-			resumeList:JSON.parse(localStorage.getItem('resume'))||{
-				head:{name:'张三',job:'前端开发工程师',avater:'/avater.png',data:[
-					{title:'意向工作地',data:'A省B县C区',icon:'bi-geo-alt-fill'},
-					{title:'电话',data:'123456789',icon:'bi-telephone-fill'},
-					{title:'电邮',data:'email@email.com',icon:'bi-envelope-fill'},
-				]},
-				body:[
-					
-				],
-				theme:''
-			}
+			resumeList:JSON.parse(localStorage.getItem('resume'))||defaultResume
 		}
 	  },
-	components: {editor,headEdit,projectExpEdit,theme,iconLib,draggable,projectExp,fenceTitle,unkown},
+	components: {editor,headEdit,projectExpEdit,fenceTitleEdit,rankExpEdit,tagListEdit,theme,iconLib,draggable,projectExp,fenceTitle,rankExp,tagList,unkown},
 	mounted() {
 		setInterval(()=>{
 			localStorage.setItem('resume',JSON.stringify(this.resumeList))
 		},2000)
+		const link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = '';
+		link.id = 'theme'
+		document.head.appendChild(link);
+		this.loadCss('./themes/defaultGreen.css')
 	},
 	methods:{
+		 loadCss(url) {
+			document.getElementById('theme').href=url
+		  },
 		/**指定编辑组件
 		 * @param {String} component.com 组件名称
 		 * @param {String} component.index 组件名称
@@ -122,12 +131,14 @@
 			<div @click="switchIndex=1" :class="['switch-tab',switchIndex?'switch-active':'']">图标库</div>
 		</div>
 		<div v-show="!switchIndex" class="default">
-			<draggable :list="libraryList" :group="{name:'group',pull:'clone',put:false}"
-				:sort="false" :clone="(e)=>{return JSON.parse(JSON.stringify(e))}">
+			<draggable :list="libraryList" itemKey="data" :group="{name:'group',pull:'clone',put:false}"
+				:sort="false" :clone="(e)=>{e.id=Math.random().toString(36).slice(-6);return JSON.parse(JSON.stringify(e))}">
 				 <template #item="{ element }">
 					  <div class="item">
 							<project-exp :data="element" v-if="element.name==='projectExp'"></project-exp>
 							<fence-title :data="element" v-else-if="element.name==='fenceTitle'"></fence-title>
+							<rank-exp :data="element" v-else-if="element.name==='rankExp'"></rank-exp>
+							<tag-list :data="element" v-else-if="element.name==='tagList'"></tag-list>
 							<unkown :data="element" v-else></unkown>
 					  </div>
 				</template>
@@ -142,7 +153,7 @@
 	<!-- 删除组件的垃圾桶 -->
 	<div :style="{bottom:trashHide?'-110px':'-20px'}" class="trach-bin box">
 		<div class="trach-in">
-			<draggable class="trash-drag" :list="trashList" :group="{name:'group',pull:false,put:true}" @end="trashList=[]" :sort="false">
+			<draggable class="trash-drag" :list="trashList" itemKey="id" :group="{name:'group',pull:false,put:true}" @end="trashList=[]" :sort="false">
 				 <template #item="{ element }">
 					  <div class="item">
 							<div class="trash">
@@ -161,9 +172,16 @@
 		<div class="head-bar-left"></div>
 		<div class="head-bar-center"></div>
 		<div class="head-bar-right">
-			<i @click="savepic" class="bi bi-image-fill"></i>
-			<i @click="print" class="bi bi-printer-fill"></i>
+			<a target="_blank" href="https://blog.zhoujump.club">
+				<i class="bi bi-info-square"></i>
+			</a>
+			<i @click="savepic" class="bi bi-download"></i>
+			<i @click="print" class="bi bi-printer"></i>
 		</div>
+	</div>
+	<!--  -->
+	<div class="ad box">
+		AD
 	</div>
 </template>
     
@@ -178,6 +196,17 @@
     }
 	body{
 		overflow-y: scroll;
+	}
+	.ad{
+		position: fixed;
+		z-index: 1;
+		left: 10px;
+		bottom: 35px;
+		width: 300px;
+		height: 180px;
+		text-align: center;
+		line-height: 160px;
+		color: lightgray;
 	}
 	.editor {
 	    height: 594px;
@@ -194,6 +223,7 @@
 	    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 	}
 	.trach-bin{
+		z-index: 2;
 		width: 260px;
 		height: 110 px;
 		position: fixed;
@@ -241,6 +271,7 @@
 		margin-left: 4px;
 		margin-left: 4px;
 		border-radius: 8px;
+		color: #212528;
 	}
 	.head-bar div{
 		display: flex;
@@ -253,6 +284,7 @@
 		padding: 4px;
 		margin-top: 6px;
 		border-radius: 6px;
+		font-size: 8px;	
 	}
 	.switch{
 		font-size: 14px;
@@ -292,4 +324,3 @@
 		transition-duration: 200ms;
 	}
 </style>
-<style src="./themes/default.css"></style>

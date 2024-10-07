@@ -1,0 +1,208 @@
+{
+    "head": {
+        "name": "粥粥",
+        "job": "前端开发实习生",
+        "avater": "/avater.png",
+        "data": [
+            {
+                "title": "毕业时间",
+                "data": "2025年8月",
+                "icon": "bi-mortarboard-fill"
+            },
+            {
+                "title": "意向工作地",
+                "data": "福建省厦门市",
+                "icon": "bi-geo-alt-fill"
+            },
+            {
+                "title": "电邮",
+                "data": "x@zhoujump.club",
+                "icon": "bi-envelope-fill"
+            },
+            {
+                "title": "个人网站",
+                "data": "blog.zhoujump.club",
+                "icon": "bi-globe-asia-australia"
+            }
+        ]
+    },
+    "body": [
+        {
+            "name": "fenceTitle",
+            "title": "实习经历",
+            "icon": "bi-briefcase-fill",
+            "id": "qvy8w7"
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "实习经历",
+                "2024.8-至今",
+                "不便透漏"
+            ],
+            "data": [
+                {
+                    "title": "主要职责：",
+                    "text": "该公司部分项目的国际化改造；部分页面使用公司内部组件重构；部分页面缺陷修复。"
+                },
+                {
+                    "title": "学习收获：",
+                    "text": "了解到了微前端框架如何降低大型项目的维护难度；如何通过SVN版本管理系统进行协同开发。"
+                }
+            ],
+            "id": "lrc75v"
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "实习经历",
+                "2024.6-2024.8",
+                "不便透漏"
+            ],
+            "data": [
+                {
+                    "title": "主要职责：",
+                    "text": "某AI移动端uni-app应用向PCweb端进行移植，以及其缺陷的修复；某无人直播应用的前端构建。"
+                },
+                {
+                    "title": "学习收获：",
+                    "text": "对于AI应用侧的开发有了更深的了解，对于一个项目的开发流程有了初步认识，对于uni-app的PCweb端开发与适配有了更多的了解"
+                }
+            ],
+            "id": "hqwzmk"
+        },
+        {
+            "name": "fenceTitle",
+            "title": "项目经验",
+            "icon": "bi-pc-display"
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "简历编辑器",
+                "2024.10.1-至今",
+                "个人项目"
+            ],
+            "data": [
+                {
+                    "title": "项目介绍：",
+                    "text": "该项目为个人开发项目。可以通过拖拽组件来实现简历的构建、修改与组件删除操作；点击组件后可在右侧对组件进行详细配置；具有导出为png图片和简历打印的功能；具有简历主题切换功能。"
+                },
+                {
+                    "title": "主要职责:",
+                    "text": "负责项目的前端构建，项目的上线部署，还有简历主题模板的制作"
+                }
+            ]
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "无人直播助手",
+                "2024.6-2024.8",
+                "实习项目"
+            ],
+            "data": [
+                {
+                    "title": "项目介绍：",
+                    "text": "该应用基于Electron构建，支持对主流直播平台的评论抓取，并对观众评论作出反应；可以配置无人直播话术，当达到指定条件触发，播放指定音视频或文案；接入AI系统，当观众评论话术配置无法处理时调用AI对观众作出回应。"
+                },
+                {
+                    "title": "主要职责：",
+                    "text": "负责该项目的前端页面构建，用户交互逻辑、页面动效的设计"
+                }
+            ],
+            "id": "jh3bt4"
+        },
+        {
+            "name": "fenceTitle",
+            "title": "技术栈",
+            "icon": "bi-tools"
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "技术熟练度"
+            ],
+            "data": [],
+            "id": "9kljkm"
+        },
+        {
+            "name": "projectExp",
+            "title": [],
+            "data": [
+                {
+                    "title": "",
+                    "text": "本人对于前端三大件较为熟悉。会使用Vue构建web应用，搭配NW.js构建跨平台应用；会使用uni-app和uniCloud构建移动端应用；具有一定的设计能力，会使用Ps、Pr、Ae等工具进行平面设计、动态设计；具有基本的项目部署和运维能力"
+                }
+            ],
+            "id": "u1srlm"
+        },
+        {
+            "name": "rankExp",
+            "data": [
+                {
+                    "title": "CSS",
+                    "rank": 4
+                },
+                {
+                    "title": "Vue",
+                    "rank": 3
+                },
+                {
+                    "title": "uni-app",
+                    "rank": 3
+                },
+                {
+                    "title": "NW.js",
+                    "rank": 2
+                },
+                {
+                    "title": "Ps",
+                    "rank": 2
+                }
+            ]
+        },
+        {
+            "name": "projectExp",
+            "title": [
+                "技术标签"
+            ],
+            "data": [],
+            "id": "1tkq1c"
+        },
+        {
+            "name": "tagList",
+            "data": [
+                "CSS3",
+                "HTML5",
+                "ES6",
+                "Vue",
+                "NW.js",
+                "uni-app",
+                "uniCloud",
+                "Adobe全家桶"
+            ]
+        },
+        {
+            "name": "fenceTitle",
+            "title": "个人介绍",
+            "icon": "bi-heart-fill"
+        },
+        {
+            "name": "projectExp",
+            "title": [],
+            "data": [
+                {
+                    "title": "",
+                    "text": "本人对前端技术非常感兴趣，喜欢钻研如何使用CSS实现一些互动效果，并将发现成果在个人博客上记录。"
+                },
+                {
+                    "title": "",
+                    "text": "代码习惯良好，喜欢缩进、喜欢文档注释，变量、方法、对象命名遵循驼峰、短横线规则。"
+                }
+            ],
+            "id": "7axmkz"
+        }
+    ],
+    "theme": ""
+}
