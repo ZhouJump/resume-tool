@@ -43,4 +43,4 @@ pages:
     - mv dist public # 重命名 dist 文件夹 (npm run build 之后的输出位置)
   artifacts:
     paths:
-      - public
+      - public # artifact path 一定要在 /public , 这样 GitLab Pages 才能获取
