@@ -16,6 +16,10 @@
 </script>
 
 <style scoped>
+	.head{
+		text-align: center;
+		margin-bottom: 8px;
+	}
 	.title{
 		color: grey;
 		font-size: 12px;
