@@ -17,5 +17,6 @@
 </template>
     
 <style scoped>
-
+.project-exp{cursor: grab}
+.project-exp:active{cursor: grabbing}
 </style>

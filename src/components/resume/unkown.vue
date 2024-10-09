@@ -20,5 +20,7 @@
 	.unkown{
 		border: 1px solid #cc900c;
 		padding: 4px;
+		cursor: grab
 	}
+	.unkown:active{cursor: grabbing}
 </style>

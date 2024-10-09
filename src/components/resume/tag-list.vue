@@ -9,5 +9,7 @@
 	const data = defineProps(['data'])
 </script>
 
-<style>
+<style scoped>
+.tag-list{cursor: grab}
+.tag-list:active{cursor: grabbing}
 </style>

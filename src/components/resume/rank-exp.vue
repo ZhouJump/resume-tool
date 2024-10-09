@@ -14,5 +14,7 @@
 	const data = defineProps(['data'])
 </script>
 
-<style>
+<style scoped>
+.rank-exp{cursor: grab}
+.rank-exp:active{cursor: grabbing}
 </style>

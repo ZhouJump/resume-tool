@@ -9,5 +9,7 @@
 	const data = defineProps(['data'])
 </script>
 
-<style>
+<style scoped>
+.fence-title{cursor: grab}
+.fence-title:active{cursor: grabbing}
 </style>
