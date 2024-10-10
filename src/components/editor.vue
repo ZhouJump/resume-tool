@@ -26,6 +26,7 @@
 			itemKey="id"
 			@start="$emit('dragstart')"
 			@end="$emit('dragend')"
+			fallback-class="true"
 			:group="{name:'group',pull:true,put:true}">
 			 <template #item="{ element,index }">
 				  <div class="item">
